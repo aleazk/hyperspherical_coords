@@ -28,28 +28,7 @@ def Phi_loss_function_mu(mu, device, compress):
     
     # cos_phi_mean part ----------
 
-    if False:  # for AD only!
-
-        gamma = 0.1  #0.01 for fmnist with sin_phis
-
-        Beta = 50 * R/(torch.arange(2, d+1).to(device)).pow(1/2)
-
-        Alpha =  (Beta / (50*R) ) * (torch.arange(1, d).to(device)).pow(1/2)
-
-        Alpha_ = torch.arcsin(Alpha)
-
-        sin_phis = SC.cart_to_sin_sph (mu.detach(), device)
-
-        We = torch.unsqueeze(torch.exp((-1)*gamma*torch.linalg.norm (sin_phis * Alpha , dim=1)), dim=1)
-
-        #phis = SC.cart_to_sph (mu.detach(), device) 
-
-        #We = torch.unsqueeze(torch.exp((-1)*gamma*torch.linalg.norm (phis * Alpha_ , dim=1)), dim=1) 
-
-        cos_phi_mean = (SC.cart_to_cos_sph (mu, device)*We).mean(dim=0)
-    
-    else:
-        cos_phi_mean = SC.cart_to_cos_sph (mu, device).mean(dim=0)
+    cos_phi_mean = SC.cart_to_cos_sph (mu, device).mean(dim=0)
     
     if compress=='half':
         cos_phi_mean_p = torch.squeeze(SC.cart_to_cos_sph (torch.unsqueeze(torch.ones(d).to(device).float(), dim=0), device)
@@ -152,7 +131,7 @@ def r_loss_function_sigma(logvar, device):
     
     r_sigma_mean = SC.r(std).mean()
     
-    r_sigma_mean_p = torch.sqrt(torch.tensor([d-0.5]).to(device))*0.6 # <--------- Prior for r_sigma_mean
+    r_sigma_mean_p = torch.sqrt(torch.tensor([d-0.5]).to(device))*1.0 # <--------- Prior for r_sigma_mean
   
     KLD_r_sigma_mean = (r_sigma_mean - r_sigma_mean_p).pow(2)
     
