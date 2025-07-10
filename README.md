@@ -11,3 +11,14 @@ The measurements were done during typical trainings in a NVIDIA H100 GPU. We sho
 
 <img width="575" height="470" alt="trainspeed (1)" src="https://github.com/user-attachments/assets/9c703c69-41c1-409d-9b6d-e1f529756100" />
 
+The script loss_functions.py implements the KLD-like loss for the compression VAE using hyperspherical coordinates, which you can then insert into your VAE as a variation of the standard KLD term, as per the following formulas:
+
+<img width="938" height="405" alt="image" src="https://github.com/user-attachments/assets/de66ef31-12a2-4f09-948d-ad992a76347b" />
+
+For the final KLD-like term you will need to sum all of these, where the gains for each one usually depends on the dataset and architecture. For cifar10 and using a Resnet, we used the following:
+
+kl = 1000 * KLD_phi_mu + 50 * 6 * KLD_r_mu + 500000 * KLD_phi_sigma + 500 * KLD_r_sigma
+
+And also a training schedule like the following for the first 100 epochs:
+
+loss = MSE + beta * kl*(epoch**0.5 + 1)
