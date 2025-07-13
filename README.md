@@ -14,7 +14,8 @@ The measurements were done during typical trainings in a NVIDIA H100 GPU. We sho
 
 The script loss_functions.py implements the KLD-like loss for the compression VAE using hyperspherical coordinates, which you can then insert into your VAE as a variation of the standard KLD term, as per the following formulas:
 
-<img width="938" height="405" alt="image" src="https://github.com/user-attachments/assets/de66ef31-12a2-4f09-948d-ad992a76347b" />
+![1752437281033-7264c5cb-38db-417e-9819-6fb6467af7fe_1](https://github.com/user-attachments/assets/101fe225-a51e-4f2b-8d7a-90ac2b434e1f)
+
 
 For the final KLD-like term you will need to sum all of these, where the gains for each one usually depends on the dataset and architecture. For cifar10 and using a Resnet, we used the following:
 
