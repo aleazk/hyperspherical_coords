@@ -1,7 +1,8 @@
 # hyperspherical_coords
 Python script for transforming Cartesian to Hyperspherical coordinates and back (SC_vectorized.py).
 
-<img width="788" height="763" alt="image" src="https://github.com/user-attachments/assets/d9655ef7-006a-4634-9000-c6f407a72c17" />
+![1752436673628-dcb3381d-448c-48a7-9046-edd980728398_1](https://github.com/user-attachments/assets/91d86b29-5b7c-44f7-bb02-c1272f2c10c1)
+
 
 
 
