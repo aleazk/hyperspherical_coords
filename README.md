@@ -18,9 +18,10 @@ The script loss_functions.py implements the KLD-like loss for the compression VA
 
 
 For the final KLD-like term you will need to sum all of these, where the gains for each one usually depends on the dataset and architecture. For cifar10 and using a Resnet, we used the following:
-
+```python
 kl = 1000 * KLD_phi_mu + 50 * 6 * KLD_r_mu + 500000 * KLD_phi_sigma + 500 * KLD_r_sigma
-
+```
 And also a training schedule like the following for the first 100 epochs:
-
+```python
 loss = MSE + beta * kl*(epoch**0.5 + 1)
+```
